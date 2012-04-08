@@ -1,0 +1,7 @@
+// hrmshield v0.1: Arduino heart rate logger
+//    http://www.element14.com/community/blogs/pdp7
+//
+// Code included and modified from:
+//    HeartSpark http://sensebridge.net/projects/heart-spark/
+//    OpenHeart http://jimmieprodgers.com/kits/openheart/
+//    Adafruit Logger Shield http://www.ladyada.net/make/logshield/index.html
