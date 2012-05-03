@@ -5,17 +5,24 @@ echo $FILENAME
 
 if [ ! -f "$FILENAME" ]
 then
-	echo "usage error"
+	echo "error: no filename specified or filename doesn't exist"
 	exit 1
 fi
 
+# run parse and filter seperately
 cat $FILENAME | ./parse.pl | sort -n > $FILENAME.parsed
 cat $FILENAME.parsed | ./filter.pl | sort -n > $FILENAME.filtered
-cat $FILENAME.parsed | ./avg.pl | sort -n > $FILENAME.avg
-join $FILENAME.parsed $FILENAME.filtered > $FILENAME.tmp
-join $FILENAME.tmp $FILENAME.avg > data/hrm.data
+# removing avg for now:
+# cat $FILENAME.parsed | ./avg.pl | sort -n > $FILENAME.avg
 
-gnuplot hrmshield.plot
+# merge together the data output from the different scripts
+join $FILENAME.parsed $FILENAME.filtered > $FILENAME.data
+# removing avg for now:
+# join $FILENAME.parsed $FILENAME.filtered > $FILENAME.tmp
+# join $FILENAME.tmp $FILENAME.avg > data/hrm.data
 
-eog data/hrm.png
+# generate graph with pre-defined settings
+gnuplot hrmshield-png.plot
 
+# open graph in image viewer
+eog graph/hrm.png

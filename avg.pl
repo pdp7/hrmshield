@@ -1,14 +1,12 @@
 #!/usr/bin/perl
 
-# Title: Arduino hrmshield heart rate data filter
+# Title: Arduino hrmshield heart rate data rolling average filter
 # Author: Drew Fustini
 # Version: 0.1 [2012-04-09]
 # Blog: http://www.element14.com/community/blogs/pdp7
 # Repo: https://github.com/pdp7/hrmshield
 #
-# Desc: This script applies filtering to the heart rate bpm samples 
-#       and is adapted from the HeartSpark asymptote script:
-#       http://github.com/mrericboyd/Heart-Plot
+# Desc: This script calculates a rolling average for heart rate
 #
 # STDIN: file format is as follows:
 #         <epoch-timestamp>\t<bpm>\n
@@ -26,8 +24,6 @@ my @bpm;
 my @plot;
 
 my $rollingaverage = 75;
-my $LowerBound = 0.60;
-my $UpperBound = 1.30;
 
 # read in all stdin and split each line into timestamp & bpm sample
 # push each of these values into the respective array
@@ -41,10 +37,10 @@ while(my $ln = <STDIN>) {
 print STDERR "time: " . scalar @time . "\n";
 print STDERR " bpm: " . scalar @bpm . "\n";
 
-# process each bpm sample with the filter
+# process each bpm sample for rolling average
 for(my $i=0; $i < scalar @bpm; $i++) {
 	next if($bpm[$i]>120 or $bpm[$i]<55);
-        $rollingaverage = ($rollingaverage*0.90) + (0.10*$bpm[$i]);
+        $rollingaverage = ($rollingaverage*0.9) + (0.1*$bpm[$i]);
 	print STDERR "$time[$i]\t" . round($rollingaverage) . "\t$bpm[$i]\t" . '*' x round($rollingaverage) . "\n";
 	print "$time[$i]\t$rollingaverage\n";
 }

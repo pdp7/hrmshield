@@ -2,12 +2,11 @@ set xlabel "Time"              # set the lower X-axis label to 'time'
 
 set xtics rotate by -270       # have the time-marks on their side
 
-
 set ylabel "BPM"    # set the left Y-axis label
 
 set ytics nomirror             # tics only on left side
 
-set yr [50:125]
+set yr [40:140]
 
 set key box top left           # legend box
 set key box linestyle 0 
@@ -16,4 +15,4 @@ set xdata time                 # the x-axis is time
 set format x "%H:%M:%S"        # display as time
 set timefmt "%s"               # but read in as 'unix timestamp'
 
-plot "hrm.csv" using 1:2 with lines title "BPM"
+plot "data/hrm.data" using 1:2 with lines title "raw", "data/hrm.data" using 1:3 with lines title "filter" #, "data/hrm.data" using 1:4 with lines title "avg"
