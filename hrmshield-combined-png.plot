@@ -18,4 +18,4 @@ set timefmt "%s"               # but read in as 'unix timestamp'
 set terminal png         # gnuplot recommends setting terminal before output
 set output "graph/bpm-combined.png"  # The output filename; to be set after setting
 
-plot "data/hrm.data" using 1:2 with lines title "30 sec avg", "data/hrm.data" using 1:3 with lines title "rolling avg"
+plot "data/hrm.data" using 1:2 with lines title "30 sample avg", "data/hrm.data" using 1:3 with lines title "filter"
