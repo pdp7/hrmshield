@@ -2,7 +2,6 @@ set xlabel "Time"              # set the lower X-axis label to 'time'
 
 set xtics rotate by -270       # have the time-marks on their side
 
-
 set ylabel "BPM"    # set the left Y-axis label
 
 set ytics nomirror             # tics only on left side
@@ -17,6 +16,6 @@ set format x "%H:%M:%S"        # display as time
 set timefmt "%s"               # but read in as 'unix timestamp'
 
 set terminal png         # gnuplot recommends setting terminal before output
-set output "graph/hrm.png"  # The output filename; to be set after setting
+set output "graph/bpm-combined.png"  # The output filename; to be set after setting
 
-plot "data/hrm.data" using 1:2 with lines title "raw", "data/hrm.data" using 1:3 with lines title "filter"#, "data/hrm.data" using 1:4 with lines title "avg"
+plot "data/hrm.data" using 1:2 with lines title "30 sec avg", "data/hrm.data" using 1:3 with lines title "rolling avg"

@@ -15,4 +15,7 @@ set xdata time                 # the x-axis is time
 set format x "%H:%M:%S"        # display as time
 set timefmt "%s"               # but read in as 'unix timestamp'
 
-plot "data/hrm.data" using 1:2 with lines title "raw", "data/hrm.data" using 1:3 with lines title "filter" #, "data/hrm.data" using 1:4 with lines title "avg"
+set terminal png         # gnuplot recommends setting terminal before output
+set output "graph/bpm-parse-avg.png"  # The output filename; to be set after setting
+
+plot "data/hrm.data" using 1:2 with lines title "30 sec avg"

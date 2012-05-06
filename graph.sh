@@ -10,19 +10,18 @@ then
 fi
 
 # run parse and filter seperately
-cat $FILENAME | ./parse.pl | sort -n > $FILENAME.parsed
-cat $FILENAME.parsed | ./filter.pl | sort -n > $FILENAME.filtered
-# removing avg for now:
-# cat $FILENAME.parsed | ./avg.pl | sort -n > $FILENAME.avg
+cat $FILENAME | ./parse-avg.pl | sort -n > $FILENAME.parsed
+cat $FILENAME.parsed | ./filter-avg.pl | sort -n > $FILENAME.filtered
 
 # merge together the data output from the different scripts
-join $FILENAME.parsed $FILENAME.filtered > $FILENAME.data
-# removing avg for now:
-# join $FILENAME.parsed $FILENAME.filtered > $FILENAME.tmp
-# join $FILENAME.tmp $FILENAME.avg > data/hrm.data
+join $FILENAME.parsed $FILENAME.filtered > data/hrm.data
 
 # generate graph with pre-defined settings
-gnuplot hrmshield-png.plot
+gnuplot hrmshield-parse-avg-png.plot
+gnuplot hrmshield-filter-avg-png.plot
+gnuplot hrmshield-combined-png.plot
 
 # open graph in image viewer
-eog graph/hrm.png
+eog graph/bpm-parse-avg.png 
+eog graph/bpm-filter-avg.png
+eog graph/bpm-combined.png 
